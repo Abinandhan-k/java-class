@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class abcd {
+public class LCAinbst {
 	static void inorder(TreeNode node) {
 		 if(node == null) return;
 		 inorder(node.left);
@@ -19,25 +19,19 @@ public class abcd {
 		}
 		return node;
 	}
-	static int findmin(TreeNode node) {
-	//	int min=0;
-		if(node==null) return 0;
-		while(node.left!=null) {
-			node=node.left;
-		}
-		//if(node.left!=null) return Math.min()
-		return node.data;
+	static TreeNode lca(TreeNode node,TreeNode p,TreeNode q) {
+		if(node==null) return null;
+		if(node.data<p.data && node.data<q.data) return lca(node.right,p,q);
+		if(node.data>p.data && node.data>q.data) return lca(node.left,p,q);
+		return node;
+		
 	}
-	static int findmax(TreeNode node) {
-		//int min=0;
-		if(node==null) return 0;
-		while(node.right!=null) {
-			node=node.right;
+		static TreeNode findmin(TreeNode node) {
+			while(node.left!=null) {
+				node=node.left;
+			}
+			return node;
 		}
-		//if(node.left!=null) return Math.min()
-		return node.data;
-	}
-			
  public static void main(String[] args) {
 	 Scanner ah=new Scanner(System.in);
 	 int n=ah.nextInt();
@@ -49,9 +43,8 @@ public class abcd {
 	 for(int i:arr) {
 		 t1=insert(i,t1);
 	 }
-     inorder(t1);
-	 System.out.println("\n"+findmin(t1)+" \nlvl");
-	 System.out.println(findmax(t1)+" \nlvl");
-	// findmax(t1);
+	int p=ah.nextInt();
+	int q=ah.nextInt();
+    System.out.pritn(lca(t1,p,q).data);
  }
 }
